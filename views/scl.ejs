@@ -1,0 +1,206 @@
+<html>
+    <head>
+    <title>schools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        h1{
+            text-transform: uppercase;
+            text-align: center;
+        }
+        img{
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            margin-top: 10px;
+            position: relative;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+        }
+        .divs{
+            background: linear-gradient(to bottom, #3333ff 0%, #6666ff 100%);
+            border-radius: 10px;
+            padding: 2%;
+            margin-top: 10px;
+            /* position: relative; */
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+            text-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+            word-wrap:break-word;
+        }
+        
+        .cont
+        {
+            margin-left: 15%;
+            margin-right: 15%;
+            padding-left: 10%;
+            padding-right: 10%;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            background-color: white;
+            border-radius: 20px;
+        }
+        body{
+            color: white;
+            background-color: #3f0d12;
+            background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+        
+            /* background-image: linear-gradient(147deg, #000000 0%, #434343 74%); */
+        }
+    </style>
+</head>
+    <body>
+        
+
+            <% if(error&&error.length>0){ %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success&&success.length>0){ %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+       
+        
+        <nav  class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- </nav> -->
+              <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+      
+                  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                              <a class="navbar-brand" href="/">SCHOOLSINFO</a>
+                              <a class="navbar-brand" href="/newscl">  ADD NEWSCHOOL INFO</a>
+                            </div>
+                  
+                  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                      <ul class="navbar-nav ml-auto">
+                          <% if(!currentUser){ %>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/login">LOGIN</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/register">SIGNUP</a>
+                          </li>
+                          <% }else{ %>
+                          <li class="nav-item">
+                                  <a class="nav-link" href="/logout">LOGOUT</a>
+                          </li>
+                          <% } %>
+                      </ul>
+                  </div>
+      
+                </nav>
+                <br>
+                <br>
+    <div class="cont">
+        
+           
+        <h1 style="color: #000000;"><b><%= scl[0].name %></b></h1>    
+        
+        <div class="divs" style="background: linear-gradient(to bottom, #9900ff 0%, #ff33cc 100%);">
+            <h2>CERTIFICATION</h2>
+            <h5><%= scl[0].certification %></h5>
+        </div>
+
+
+        <!-- <h4 style="margin-bottom:0px ; padding-bottom: 0px;" ><a href="/addimg/<%= scl[0].name %>" class="btn btn-primary" >ADD IMAGE</a></h4>> -->
+        <%  if(currentUser){ %>
+        <% if(String(currentUser._id) == String(scl[0].author.id)){ %>
+            
+        <div class="divs" style="background: linear-gradient(to bottom, #009900 0%, #66ff33 100%); ">
+            <h2>ADD A IMAGE</h2>
+            <form action="/addimg/<%= scl[0].name %>" method="POST">
+                  
+                <div class="form-group">
+                    <label for="image">IMAGE</label>
+                    <input class="form-control" type="text" name="image">
+                </div>
+                <div class="form-group">
+                <input type="submit" class="btn btn-primary"value="add">
+                </div>
+            </form>
+
+        </div>
+        <% } %>
+        <% } %>
+
+        
+        <% var a=scl[0].images.length %>       
+        <% for(var i=0;i<a;i++){ %>
+        <img src="<%= scl[0].images[i].image %>"><br>
+        <% } %>
+        <div class="divs">
+        <h2>DESCRIPTION</h2>
+        <h5><%= scl[0].description %></h5>
+        </div>
+        <div class="divs" style="background: linear-gradient(to bottom, #ff9966 -21%, #ff6600 103%);">
+        <h2>ADDRESS</h2>
+        <h5><%= scl[0].address %></h5>
+        </div>
+        <div class="divs" style="background: linear-gradient(to bottom, #9900cc 0%, #cc66ff 100%);">
+        <h2>CONTACT</h2>
+        <h5><%= scl[0].contact %></h5>
+        </div>
+        
+        <div class="divs" style=" background: linear-gradient(to bottom, #663300 0%, #ff99cc 100%);height:fit-content ;">
+            <h2>COMMENTS</h2>
+            <% var b=scl[0].comments.length %>
+            <% for(var i=0;i<b;i++){ %>
+            <h4 style="text-decoration: underline ;text-transform: uppercase;"><%= scl[0].comments[i].author %></h4>
+            <h5 style="padding-left:20px"><%= scl[0].comments[i].comment %></h5>
+           <%  if(currentUser){ %>
+            <% if(currentUser.username == scl[0].comments[i].author){ %>
+            <div class="row"> 
+            <a href="/comment/edit/<%= scl[0].comments[i]._id %>" style="margin-left:10px;width: 80px;margin-top: 12px;height:40px" class="btn btn-secondary" >EDIT</a>            
+            
+            <form action="/comment/delete/<%= scl[0].comments[i]._id %>?_method=DELETE" method="POST" >
+                <input type="submit" value="DELETE" class="btn btn-danger" style="width: 80px;margin-top: 12px;height:40px">
+             </form>
+            </div>
+            <% } %>
+              <% } %>
+            <% } %>
+        </div>
+
+
+
+        <% if(currentUser){ %>
+        <div class="divs" style="background: linear-gradient(to bottom, #009900 0%, #66ff33 100%); ">
+            <h2>ADD A COMMENT</h2>
+            <form action="/comment/<%= scl[0].name %>?_method=PUT" method="POST">
+                <!-- <div class="form-group">
+                <label for="author">Author Name</label>
+                <input class="form-control" type="text" name="author" placeholder="Write Your Name">
+                </div> -->
+                <div class="form-group">
+                <label for="comment">Comment</label>
+                <input class="form-control" type="text" name="comment" placeholder="Write Your Comment!!!">
+                </div>
+                <div class="form-group" style="padding-left: 40%;">
+                <input style=" text-align: center;width: 30%;" class="btn btn-primary" type="submit"  value="ADD">
+                </div>
+            </form>
+
+        </div>
+        <% } %>
+        <%  if(currentUser){ %>
+        <% if(String(currentUser._id) == String(scl[0].author.id)){ %>
+        <a class="btn btn-secondary" style="margin-left:33%;width: 33%;margin-top: 12px;" href="/edit/<%= scl[0]._id %>">EDIT INFO</a>
+        <form action="/delete/<%= scl[0]._id %>?_method=DELETE" method="POST">
+          <input type="submit" value="DELETE" class="btn btn-danger" style="margin-left:33%;width: 33%;margin-top: 12px;">
+        </form>
+        <% } %>
+        <% } %>
+
+        
+    </div>
+    
+   
+    <br>
+    <br>    
+    </body>
+
+</html>

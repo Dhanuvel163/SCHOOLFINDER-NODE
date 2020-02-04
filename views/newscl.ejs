@@ -1,0 +1,53 @@
+<html>
+    <head>
+    <title>schools</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+
+            <% if(error&&error.length>0){ %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success&&success.length>0){ %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+    
+    <div class="container">
+        <div class="row">
+        <h1 style="text-align: center;">ADD A NEW SCHOOL INFORMATION</h1>
+        
+        <div style="width: 45%;margin: 50px,auto;">
+            <form action="/newscl" method="post">
+                <div class="form-group">
+                <label for="name">SCHOOL NAME</label>
+                <input class="form-control" type="text" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="description">DESCRIPTION</label>
+                <textarea class="form-control" type="text" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="address">ADDRESS</label>
+                    <input class="form-control" type="text" name="address">
+                </div>
+                <div class="form-group">
+                    <label for="contact">CONTACT</label>
+                    <input class="form-control" type="number" name="contact">
+                </div>
+                <div class="form-group">
+                    <label for="certification">CERTIFICATION</label>
+                    <input class="form-control" type="text" name="certification">
+                </div>
+                <div class="form-group">
+                <input type="submit" class="btn btn-primary"value="add">
+                </div>
+            </form>
+        </div>
+        </div>    
+    
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<html>
+    <head>
+    <title>schools</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+         img{
+        object-fit: cover;
+        width:fit-content;
+        height:90%
+    }
+
+    .img-thumbnail{
+        position: relative;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+        /* padding: 10px; */
+        background: white;
+        width: 300px;
+        height: 200px;
+        margin: 30px;
+        /* background: linear-gradient(to bottom, #ff9966 -21%, #ff6600 103%); */
+        border-radius: 8px;
+
+        min-height:400px; 
+        max-height:500px; 
+        overflow:hidden;
+    }
+    body{
+        /* background-color:rgb(155,35,53); */
+        background: linear-gradient(to right, #cc3300 0%, #990000 100%);
+    }
+    #heady{
+        text-transform: uppercase;
+    }
+    </style>
+    </head>
+    <body>
+        
+
+            <% if(error&&error.length>0){ %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success&&success.length>0){ %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+        
+    
+        <div class="jumbotron" style="margin-bottom:0% ;">
+        <div class="container">
+        <h2 id="heady">welcome to SCHOOLS INFO  
+        <% if(currentUser){ %>
+            
+        <%= currentUser.username %>!
+        <% } %>
+         </h2>
+        </div>
+        </div>
+
+        
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <!-- </nav> -->
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                        <a class="navbar-brand" href="/">SCHOOLSINFO</a>
+                        <a class="navbar-brand" href="/newscl">  ADD NEWSCHOOL INFO</a>
+            </div>
+            
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <% if(!currentUser){ %>
+                        
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">SIGNUP</a>
+                    </li>
+                    <% }else{ %>
+                    <li class="nav-item">
+                            <a class="nav-link" href="/logout">LOGOUT</a>
+                    </li>
+                    <% } %>
+                    
+                </ul>
+            </div>
+
+          </nav>
+
+
+<br>
+<br>
+    <!-- <div class="container"> -->
+    <div style="margin: 5%;" class="row text-center" style="display: flex;flex-wrap: wrap;">
+        <% scl.forEach(function(scl){ %>
+    
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <div style="background-color: beige; " class="img-thumbnail" >
+         <!-- <div class="rounded">            -->
+           <% if(scl.images[0]){ %>
+             <img  src="<%= scl.images[0].image %>">
+            <!-- </div> -->
+            <% } %>
+ 
+            <h4><a href="/schools/<%= scl.name %>"><%= scl.name %></a></h4>
+            </div>
+           </div>
+        <% }) %>
+        </div>
+    <!-- </div> -->
+    
+        
+    </body>
+</html>
